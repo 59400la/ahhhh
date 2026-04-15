@@ -1,320 +1,307 @@
 <!DOCTYPE html>
 
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>dooo0t？</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ahhhhh!</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Helvetica Neue',sans-serif;background:#f0ece4;height:100dvh;display:flex;flex-direction:column;overflow:hidden}
+html,body{height:100%;overflow:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif;background:#f0ece4;display:flex;flex-direction:column;height:100dvh}
 
-/* ─── Header ─── */
-.header{background:#fff;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;z-index:10;border-bottom:1px solid #e8e4dc;gap:8px}
-.header h1{font-size:16px;font-weight:600;color:#1a1a1a;white-space:nowrap;flex-shrink:0}
-.mode-sw{display:flex;background:#f0ece4;border-radius:20px;padding:3px;gap:2px;flex-shrink:0}
-.mode-btn{border:none;background:transparent;font-size:12px;padding:5px 9px;border-radius:16px;cursor:pointer;font-family:inherit;color:#888;white-space:nowrap;transition:all .18s}
-.mode-btn.active{background:#fff;color:#1a1a1a;font-weight:500;box-shadow:0 1px 3px rgba(0,0,0,.12)}
-.hbtns{display:flex;gap:6px;flex-shrink:0}
-.lbl-btn,.btn{border:1.5px solid #ccc;background:#fff;color:#1a1a1a;font-size:14px;padding:6px 13px;border-radius:20px;cursor:pointer;font-family:inherit;white-space:nowrap;display:inline-flex;align-items:center;user-select:none}
-.lbl-btn:active,.btn:active{background:#f5f5f5}
-.lbl-btn input[type=file]{display:none}
+.hdr{background:#fff;padding:10px 12px;display:flex;align-items:center;gap:8px;border-bottom:1px solid #e8e4dc;flex-shrink:0}
+.logo{font-size:16px;font-weight:600;color:#1a1a1a;white-space:nowrap;flex-shrink:0}
+.msw{display:flex;background:#f0ece4;border-radius:20px;padding:3px;gap:2px;flex-shrink:0}
+.mb{border:none;background:transparent;font-size:12px;padding:5px 9px;border-radius:16px;cursor:pointer;font-family:inherit;color:#888;white-space:nowrap}
+.mb.on{background:#fff;color:#1a1a1a;font-weight:600;box-shadow:0 1px 3px rgba(0,0,0,.15)}
+.hbtns{display:flex;gap:6px;margin-left:auto;flex-shrink:0}
+label.hbtn,button.hbtn{border:1.5px solid #ccc;background:#fff;color:#1a1a1a;font-size:14px;padding:6px 14px;border-radius:20px;cursor:pointer;font-family:inherit;white-space:nowrap;display:inline-flex;align-items:center}
+label.hbtn input{display:none}
 
-/* ─── Canvas area ─── */
-.canvas-area{flex:1;background:#e8e3d8;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;cursor:pointer}
-canvas#mc{display:block;max-width:100%;max-height:100%;pointer-events:none}
-.hint{position:absolute;border:2px dashed #bbb;border-radius:16px;padding:24px 40px;color:#aaa;font-size:15px;pointer-events:none;text-align:center}
+.pv{flex:1;background:#e8e3d8;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;min-height:0;flex-shrink:0}
+#mc{display:block;max-width:100%;max-height:100%}
+.hint{position:absolute;border:2px dashed #bbb;border-radius:14px;padding:22px 40px;display:flex;flex-direction:column;align-items:center;gap:10px;pointer-events:none}
+.hint.hide{display:none}
+.hint-txt{font-size:14px;color:#aaa}
+label.hint-lbl{border:1.5px solid #ccc;background:#fff;color:#1a1a1a;font-size:13px;padding:5px 14px;border-radius:20px;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;pointer-events:all}
+label.hint-lbl input{display:none}
+#tapOv{position:absolute;inset:0;display:none;cursor:crosshair;z-index:5}
+#tapOv.on{display:block}
 
-/* ─── Panel ─── */
-.panel{background:#fff;border-top:1px solid #e8e4dc;overflow-y:auto;max-height:44vh}
-.mpanel{display:none}
-.mpanel.active{display:block}
+.panel{background:#fff;border-top:1px solid #e8e4dc;overflow-y:auto;-webkit-overflow-scrolling:touch;flex-shrink:0;max-height:46vh}
+.mp{display:none}.mp.on{display:block}
+.tabs{display:flex;border-bottom:1px solid #eee;padding:0 12px;position:sticky;top:0;background:#fff;z-index:3;overflow-x:auto}
+.tb{padding:11px 13px;font-size:14px;color:#999;cursor:pointer;position:relative;border:none;background:none;font-family:inherit;white-space:nowrap;flex-shrink:0}
+.tb.on{color:#1a1a1a;font-weight:500}
+.tb.on::after{content:’’;position:absolute;bottom:0;left:13px;right:13px;height:2px;background:#5a8a3c;border-radius:2px}
+.tc{display:none;padding:10px 12px 16px}.tc.on{display:block}
 
-/* ─── Tabs ─── */
-.tabs{display:flex;border-bottom:1px solid #eee;padding:0 12px;background:#fff;position:sticky;top:0;z-index:5;overflow-x:auto}
-.tab{padding:11px 13px;font-size:14px;color:#999;cursor:pointer;position:relative;border:none;background:none;font-family:inherit;white-space:nowrap}
-.tab.active{color:#1a1a1a;font-weight:500}
-.tab.active::after{content:’’;position:absolute;bottom:0;left:13px;right:13px;height:2px;background:#5a8a3c;border-radius:1px}
-.tc{display:none;padding:10px 12px 14px}
-.tc.active{display:block}
-
-/* ─── Control rows ─── */
 .cr{background:#f7f5f1;border-radius:12px;padding:12px 13px;display:flex;align-items:center;margin-bottom:8px;gap:10px}
 .cl{font-size:15px;color:#1a1a1a;min-width:62px;flex-shrink:0}
-.cv{font-size:15px;color:#666;margin-left:auto;min-width:30px;text-align:right;flex-shrink:0}
-.sel{flex:1;display:flex;align-items:center;justify-content:space-between;cursor:pointer;gap:6px}
-.selv{font-size:15px;color:#1a1a1a}
-.sela{color:#999;font-size:12px}
-input[type=range]{-webkit-appearance:none;flex:1;height:4px;border-radius:2px;outline:none;cursor:pointer}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.25);cursor:pointer}
-.swatch{width:28px;height:28px;border-radius:6px;border:1px solid #ddd;cursor:pointer;flex-shrink:0}
-input[type=color]{position:absolute;opacity:0;width:0;height:0}
+.cv{font-size:15px;color:#666;min-width:32px;text-align:right;flex-shrink:0}
+.sv{font-size:15px;color:#1a1a1a;flex:1}
+.sa{color:#999;font-size:11px;margin-left:2px;flex-shrink:0}
+
+input[type=range]{-webkit-appearance:none;appearance:none;flex:1;height:4px;border-radius:2px;outline:none;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 5px rgba(0,0,0,.3);cursor:pointer}
+
+/* FIX #2,3,4: color picker inline - label wraps a real color input */
+.clr-wrap{display:flex;align-items:center;gap:8px;cursor:pointer;flex-shrink:0}
+.clr-swatch{width:30px;height:30px;border-radius:8px;border:1px solid #ddd;display:block;flex-shrink:0;cursor:pointer;-webkit-appearance:none;appearance:none;padding:0;background:none}
+/* Native color input - visible as a styled swatch */
+/* Native color input - visible as a styled swatch */
+input[type=color]{width:30px;height:30px;border-radius:8px;border:1px solid #ddd;padding:2px;cursor:pointer;flex-shrink:0}
+input[type=color]::-webkit-color-swatch-wrapper{padding:0;border-radius:6px}
+input[type=color]::-webkit-color-swatch{border:none;border-radius:6px}
+
 .split{display:flex;gap:8px;margin-bottom:8px}
 .split .cr{flex:1;margin-bottom:0}
-.btn-rnd{background:#f7f5f1;border:none;border-radius:12px;padding:12px 13px;font-size:15px;color:#1a1a1a;cursor:pointer;font-family:inherit;text-align:center;flex:1}
-.btn-rnd:active{background:#ece9e3}
-
-/* char input row */
-.char-input{flex:1;border:none;background:transparent;font-size:16px;font-family:inherit;color:#1a1a1a;outline:none}
-
-/* text inputs (gridA) */
-.trow{background:#f7f5f1;border-radius:12px;padding:11px 13px;display:flex;align-items:center;margin-bottom:8px;gap:10px}
+.brnd{background:#f7f5f1;border:none;border-radius:12px;padding:13px;font-size:15px;color:#1a1a1a;cursor:pointer;font-family:inherit;flex:1}
+.brnd:active{background:#ece9e3}
+.char-inp{flex:1;border:none;background:transparent;font-size:16px;font-family:inherit;color:#1a1a1a;outline:none}
+.trow{background:#f7f5f1;border-radius:12px;padding:11px 13px;display:flex;align-items:flex-start;margin-bottom:8px;gap:10px}
 .trow input[type=text],.trow textarea{flex:1;border:none;background:transparent;font-size:14px;font-family:inherit;color:#1a1a1a;outline:none;resize:none}
-.trow textarea{line-height:1.5;min-height:56px}
-.stitle{font-size:11px;color:#999;font-weight:500;letter-spacing:.5px;text-transform:uppercase;padding:8px 13px 3px}
+.trow textarea{line-height:1.5;min-height:58px}
+.stit{font-size:11px;color:#999;font-weight:500;letter-spacing:.4px;text-transform:uppercase;padding:8px 13px 4px}
+.tapinfo{font-size:12px;color:#888;padding:2px 13px 8px}
 
-/* ─── Slots ─── */
 .gslots{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:10px 12px}
-.gslot{aspect-ratio:1;background:#f0ece4;border-radius:6px;display:flex;align-items:center;justify-content:center;overflow:hidden;position:relative;border:1.5px dashed #ccc}
-.gslot.filled{border-color:transparent}
-.gslot img{width:100%;height:100%;object-fit:cover;display:block}
-.snum{position:absolute;bottom:3px;left:5px;font-size:10px;color:rgba(255,255,255,.9);text-shadow:0 1px 2px rgba(0,0,0,.5);font-weight:600}
-.srm{position:absolute;top:3px;right:3px;width:18px;height:18px;background:rgba(0,0,0,.45);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;cursor:pointer;z-index:2}
-.splus{font-size:20px;color:#bbb}
-.sidx{position:absolute;bottom:3px;left:0;right:0;text-align:center;font-size:9px;color:#bbb}
-.slbl{position:absolute;inset:0;cursor:pointer;z-index:1}
-.slbl input[type=file]{display:none}
+.gslot{aspect-ratio:1;background:#f0ece4;border-radius:7px;overflow:hidden;position:relative;border:1.5px dashed #ccc;display:flex;align-items:center;justify-content:center}
+.gslot.has{border-color:transparent}
+.gslot img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0}
+.snum{position:absolute;bottom:3px;left:5px;font-size:10px;color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.7);font-weight:700;pointer-events:none;z-index:2}
+.srm{position:absolute;top:3px;right:3px;width:20px;height:20px;background:rgba(0,0,0,.5);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;color:#fff;cursor:pointer;z-index:3;border:none;font-family:inherit}
+.splus{font-size:22px;color:#bbb;pointer-events:none;z-index:1}
+.sidx{position:absolute;bottom:3px;left:0;right:0;text-align:center;font-size:9px;color:#bbb;pointer-events:none;z-index:1}
+label.slbl{position:absolute;inset:0;cursor:pointer;z-index:2;display:block}
+label.slbl input{display:none}
 
-/* ─── Dropdown ─── */
-.dov{position:fixed;inset:0;z-index:100;display:none;align-items:flex-end;justify-content:center}
-.dov.open{display:flex}
-.dbk{position:absolute;inset:0;background:rgba(0,0,0,.15)}
-.dsh{position:relative;background:#fff;border-radius:16px;margin:16px;width:calc(100% - 32px);max-width:420px;overflow:hidden;z-index:1;box-shadow:0 8px 32px rgba(0,0,0,.15)}
-.di{padding:15px 18px;font-size:16px;cursor:pointer;display:flex;align-items:center;gap:10px;border-bottom:1px solid #f0f0f0}
+.dov{position:fixed;inset:0;z-index:999;display:none;align-items:flex-end;justify-content:center}
+.dov.on{display:flex}
+.dbk{position:absolute;inset:0;background:rgba(0,0,0,.2)}
+.dsh{position:relative;background:#fff;border-radius:18px 18px 12px 12px;margin:0 12px 12px;width:calc(100% - 24px);max-width:440px;overflow:hidden;z-index:1;box-shadow:0 8px 40px rgba(0,0,0,.2);max-height:70vh;overflow-y:auto}
+.di{padding:16px 18px;font-size:16px;cursor:pointer;display:flex;align-items:center;gap:12px;border-bottom:1px solid #f0f0f0}
 .di:last-child{border-bottom:none}
-.di:active{background:#f7f7f7}
-.di .ck{color:#5a8a3c;font-size:16px;width:20px}
+.di:active{background:#f5f5f5}
+.dck{color:#5a8a3c;font-size:16px;width:20px;flex-shrink:0}
 </style>
 
 </head>
 <body>
 
-<div class="header">
-  <h1>dooo0t？</h1>
-  <div class="mode-sw">
-    <button class="mode-btn active" data-mode="dots">波点</button>
-    <button class="mode-btn" data-mode="gridA">九宫格A</button>
-    <button class="mode-btn" data-mode="gridB">九宫格B</button>
+<div class="hdr">
+  <span class="logo">ahhhhh!</span>
+  <div class="msw">
+    <button class="mb on" data-mode="dots">Dots</button>
+    <button class="mb" data-mode="ga">Grid A</button>
+    <button class="mb" data-mode="gb">Grid B</button>
   </div>
   <div class="hbtns">
-    <!-- FIX#8: canvas area click uploads; header upload also works -->
-    <label class="lbl-btn" id="hdrUploadLbl">上传<input type="file" id="hdrFile" accept="image/*" multiple></label>
-    <button class="btn" id="dlBtn">下载</button>
+    <label class="hbtn">Upload<input type="file" id="hdrFile" accept="image/*" multiple></label>
+    <button class="hbtn" id="dlBtn">Download</button>
   </div>
 </div>
 
-<!-- FIX#8: clicking canvas area triggers upload -->
-
-<div class="canvas-area" id="ca">
+<div class="pv" id="pv">
   <canvas id="mc"></canvas>
-  <div class="hint" id="hint">请上传图片 :D<br><span style="font-size:12px;opacity:.6">点击此处上传</span></div>
+  <div id="tapOv"></div>
+  <div class="hint" id="hint">
+    <span class="hint-txt">Upload an image :D</span>
+    <label class="hint-lbl">Tap to upload<input type="file" id="hintFile" accept="image/*" multiple></label>
+  </div>
 </div>
-
-<!-- hidden color pickers -->
-
-<input type="color" id="bgClr" value="#e8e3d8">
-<input type="color" id="strClr1" value="#e8e3d8">
-<input type="color" id="strClr2" value="#c8c0b0">
-<input type="color" id="dotClr" value="#5a8a3c">
-<input type="color" id="gaBgClr" value="#f5f2ec">
-<input type="color" id="gaTxtClr" value="#1a1a1a">
-<input type="color" id="gbBgClr" value="#f0ece4">
-<input type="color" id="gbTxtClr" value="#1a1a1a">
 
 <div class="panel">
 
 <!-- ══ DOTS ══ -->
 
-<div class="mpanel active" id="panel-dots">
+<div class="mp on" id="mp-dots">
   <div class="tabs">
-    <button class="tab active" data-panel="dots" data-tab="layout">布局</button>
-    <button class="tab" data-panel="dots" data-tab="bg">底图</button>
-    <button class="tab" data-panel="dots" data-tab="dot">波点</button>
+    <button class="tb on" data-p="dots" data-t="layout">Layout</button>
+    <button class="tb" data-p="dots" data-t="bg">Background</button>
+    <button class="tb" data-p="dots" data-t="dot">Dots</button>
   </div>
-  <div class="tc active" id="dots-tab-layout">
-    <div class="cr" id="arrRow" style="cursor:pointer">
-      <span class="cl">拼接</span>
-      <div class="sel"><span class="selv" id="arrLbl">主图在上</span><span class="sela">⌃⌄</span></div>
+
+  <!-- Layout -->
+
+  <div class="tc on" id="dots-layout">
+    <div class="cr" id="rArr" style="cursor:pointer">
+      <span class="cl">Arrangement</span><span class="sv" id="vArr">Main left</span><span class="sa">⌃⌄</span>
     </div>
     <div class="cr">
-      <span class="cl">占比</span>
-      <input type="range" id="ratioR" min="10" max="90" value="50" style="background:linear-gradient(to right,#5a8a3c 50%,#ddd 50%)">
-      <span class="cv" id="ratioV">50</span>
+      <span class="cl">Ratio</span>
+      <input type="range" id="rRatio" min="10" max="90" value="50">
+      <span class="cv" id="vRatio">50</span>
     </div>
   </div>
-  <div class="tc" id="dots-tab-bg">
-    <div class="cr" id="bgTypeRow" style="cursor:pointer">
-      <span class="cl">底图</span>
-      <div class="sel"><span class="selv" id="bgTypeLbl">纯色</span><span class="sela">⌃⌄</span></div>
+
+  <!-- Background -->
+
+  <div class="tc" id="dots-bg">
+    <div class="cr" id="rBgType" style="cursor:pointer">
+      <span class="cl">Background</span><span class="sv" id="vBgType">Solid</span><span class="sa">⌃⌄</span>
     </div>
-    <!-- solid -->
-    <div class="cr" id="bgSolidRow" style="cursor:pointer">
-      <span class="cl">颜色</span>
-      <div class="swatch" id="bgSwatch" style="background:#e8e3d8"></div>
+    <!-- Solid: inline color picker -->
+    <div class="cr" id="gSolid">
+      <span class="cl">Color</span>
+      <label style="display:inline-flex;cursor:pointer;flex-shrink:0"><input type="color" id="cpBg" value="#e8e3d8"></label>
     </div>
-    <!-- stripe FIX#3: two colors -->
-    <div id="bgStripeRows" style="display:none">
-      <div class="cr" id="str1Row" style="cursor:pointer">
-        <span class="cl">颜色1</span>
-        <div class="swatch" id="str1Sw" style="background:#e8e3d8"></div>
-      </div>
-      <div class="cr" id="str2Row" style="cursor:pointer">
-        <span class="cl">颜色2</span>
-        <div class="swatch" id="str2Sw" style="background:#c8c0b0"></div>
+    <!-- Stripe: two inline pickers + width -->
+    <div id="gStripe" style="display:none">
+      <div class="cr">
+        <span class="cl">Color 1</span>
+        <label style="display:inline-flex;cursor:pointer;flex-shrink:0"><input type="color" id="cpS1" value="#e8e3d8"></label>
       </div>
       <div class="cr">
-        <span class="cl">条纹宽</span>
-        <input type="range" id="strWR" min="2" max="60" value="14" style="background:linear-gradient(to right,#5a8a3c 20%,#ddd 20%)">
-        <span class="cv" id="strWV">14</span>
+        <span class="cl">Color 2</span>
+        <label style="display:inline-flex;cursor:pointer;flex-shrink:0"><input type="color" id="cpS2" value="#c8c0b0"></label>
+      </div>
+      <div class="cr">
+        <span class="cl">Stripe Width</span>
+        <input type="range" id="rStrW" min="2" max="60" value="14">
+        <span class="cv" id="vStrW">14</span>
       </div>
     </div>
-    <!-- photo bg -->
-    <div id="bgPhotoRow" style="display:none">
+    <!-- Photo background -->
+    <div id="gPhoto" style="display:none">
       <label class="cr" style="cursor:pointer">
-        <span class="cl">选择照片</span>
-        <div class="sel"><span class="selv">点击上传</span><span class="sela">›</span></div>
-        <input type="file" id="bgPhotoFile" accept="image/*" style="display:none">
+        <span class="cl">Choose Photo</span><span class="sv">Tap to upload</span><span class="sa">›</span>
+        <input type="file" id="bgPF" accept="image/*" style="display:none">
       </label>
     </div>
   </div>
-  <div class="tc" id="dots-tab-dot">
-    <!-- FIX#1: shape selector (no default circle shown constantly) -->
-    <div class="cr" id="shapeRow" style="cursor:pointer">
-      <span class="cl">形状</span>
-      <div class="sel"><span class="selv" id="shapeLbl">圆形</span><span class="sela">⌃⌄</span></div>
+
+  <!-- Dots -->
+
+  <div class="tc" id="dots-dot">
+    <div class="cr" id="rShape" style="cursor:pointer">
+      <span class="cl">Shape</span><span class="sv" id="vShape">Circle</span><span class="sa">⌃⌄</span>
     </div>
-    <!-- FIX#6: char input appears below shape, no maxlength -->
-    <div class="cr" id="charRow" style="display:none">
-      <span class="cl">字符</span>
-      <input class="char-input" id="charInp" value="●" placeholder="输入任意字符">
+    <!-- char row below shape -->
+    <div class="cr" id="gChar" style="display:none">
+      <span class="cl">Character</span><input class="char-inp" id="charInp" value="●" placeholder="Any character">
     </div>
-    <!-- FIX#2: dot color picker -->
-    <div class="cr" id="dotClrRow" style="cursor:pointer">
-      <span class="cl">颜色</span>
-      <div class="swatch" id="dotSwatch" style="background:#5a8a3c"></div>
+    <!-- inline color picker for dot color -->
+    <div class="cr">
+      <span class="cl">Color</span>
+      <label style="display:inline-flex;cursor:pointer;flex-shrink:0"><input type="color" id="cpDot" value="#5a8a3c"></label>
     </div>
     <div class="cr">
-      <span class="cl">点大小</span>
-      <input type="range" id="dotSzR" min="4" max="120" value="28" style="background:linear-gradient(to right,#5a8a3c 20%,#ddd 20%)">
-      <span class="cv" id="dotSzV">28</span>
+      <span class="cl">Dot Size</span>
+      <input type="range" id="rSz" min="4" max="120" value="28">
+      <span class="cv" id="vSz">28</span>
     </div>
     <div class="cr">
-      <span class="cl">大小差异</span>
-      <input type="range" id="dotVarR" min="0" max="100" value="0" style="background:linear-gradient(to right,#5a8a3c 0%,#ddd 0%)">
-      <span class="cv" id="dotVarV">0</span>
+      <span class="cl">Size Variance</span>
+      <input type="range" id="rVar" min="0" max="100" value="0">
+      <span class="cv" id="vVar">0</span>
     </div>
     <div class="cr">
-      <span class="cl">点数量</span>
-      <input type="range" id="dotCntR" min="3" max="200" value="18" style="background:linear-gradient(to right,#5a8a3c 8%,#ddd 8%)">
-      <span class="cv" id="dotCntV">18</span>
+      <span class="cl">Dot Count</span>
+      <input type="range" id="rCnt" min="0" max="200" value="18">
+      <span class="cv" id="vCnt">18</span>
     </div>
-    <!-- FIX#4: 4 distribution modes, undo button for tap mode -->
     <div class="split">
-      <div class="cr" id="distRow" style="cursor:pointer;flex:1;margin-bottom:0">
-        <span class="cl">波点分布</span>
-        <div class="sel"><span class="selv" id="distLbl">随机</span><span class="sela">⌃⌄</span></div>
+      <div class="cr" id="rDist" style="cursor:pointer;flex:1;margin-bottom:0">
+        <span class="cl">Distribution</span><span class="sv" id="vDist">Random</span><span class="sa">⌃⌄</span>
       </div>
-      <button class="btn-rnd" id="rndBtn">随机一下</button>
+      <button class="brnd" id="rndBtn">Randomize</button>
     </div>
-    <div class="cr" id="undoRow" style="display:none">
-      <button class="btn-rnd" id="undoBtn" style="flex:1">撤回上一个点</button>
+    <div id="gUndo" style="display:none;padding:0 0 8px">
+      <button class="brnd" id="undoBtn" style="width:100%">Undo last dot</button>
     </div>
-    <p id="tapHint" style="display:none;font-size:12px;color:#999;padding:4px 13px 8px">点击预览图放置波点</p>
+    <p class="tapinfo" id="tapInfo" style="display:none">👆 Tap the preview to place a dot</p>
   </div>
 </div>
 
 <!-- ══ GRID A ══ -->
 
-<div class="mpanel" id="panel-gridA">
+<div class="mp" id="mp-ga">
   <div class="tabs">
-    <button class="tab active" data-panel="gridA" data-tab="photos">照片</button>
-    <button class="tab" data-panel="gridA" data-tab="text">文字</button>
-    <button class="tab" data-panel="gridA" data-tab="style">样式</button>
+    <button class="tb on" data-p="ga" data-t="photos">Photos</button>
+    <button class="tb" data-p="ga" data-t="text">Text</button>
+    <button class="tb" data-p="ga" data-t="style">Style</button>
   </div>
-  <div class="tc active" id="gridA-tab-photos">
-    <!-- FIX#7: bulk upload label -->
-    <div style="padding:10px 12px 4px">
-      <label class="lbl-btn" style="width:100%;justify-content:center;gap:6px">
-        一次上传多张（最多9张）
-        <input type="file" id="gaMultiFile" accept="image/*" multiple>
+  <div class="tc on" id="ga-photos">
+    <div style="padding:10px 12px 6px">
+      <label class="hbtn" style="width:100%;justify-content:center;border-radius:12px;padding:12px;gap:6px">
+        ＋ Bulk upload (max 9)<input type="file" id="gaMulti" accept="image/*" multiple>
       </label>
     </div>
     <div class="gslots" id="gaSlots"></div>
     <div style="padding:0 12px 8px">
-      <div class="cr" id="gaClearBtn" style="cursor:pointer;justify-content:center">
-        <span style="font-size:14px;color:#e06060">清空全部</span>
+      <div class="cr" id="gaClear" style="cursor:pointer;justify-content:center">
+        <span style="font-size:14px;color:#e06060">Clear all</span>
       </div>
     </div>
   </div>
-  <div class="tc" id="gridA-tab-text">
-    <div class="stitle">顶部标题</div>
+  <div class="tc" id="ga-text">
+    <div class="stit">Top Title</div>
     <div class="trow"><input type="text" id="gaTitle" placeholder="week 10 · 14/12 – 21/12/25"></div>
-    <div class="stitle">底部说明（每行一条）</div>
-    <div class="trow"><textarea id="gaCaptions" placeholder="(1) box&#10;(2) splash&#10;..."></textarea></div>
-    <div class="stitle">右下角署名</div>
+    <div class="stit">Bottom captions (one per line)</div>
+    <div class="trow"><textarea id="gaCaps" placeholder="(1) box&#10;(2) splash&#10;(3) reste"></textarea></div>
+    <div class="stit">Bottom-right credit</div>
     <div class="trow"><input type="text" id="gaCredit" placeholder="song: landslide · fleetwood mac"></div>
   </div>
-  <div class="tc" id="gridA-tab-style">
-    <!-- FIX#9: color pickers for bg & text -->
-    <div class="cr" id="gaBgRow" style="cursor:pointer">
-      <span class="cl">背景色</span>
-      <div class="swatch" id="gaBgSw" style="background:#f5f2ec"></div>
-    </div>
-    <div class="cr" id="gaTxtRow" style="cursor:pointer">
-      <span class="cl">文字色</span>
-      <div class="swatch" id="gaTxtSw" style="background:#1a1a1a"></div>
+  <div class="tc" id="ga-style">
+    <div class="cr">
+      <span class="cl">Background</span>
+      <label style="display:inline-flex;cursor:pointer;flex-shrink:0"><input type="color" id="cpGaBg" value="#f5f2ec"></label>
     </div>
     <div class="cr">
-      <span class="cl">间距</span>
-      <input type="range" id="gaGapR" min="0" max="20" value="6" style="background:linear-gradient(to right,#5a8a3c 30%,#ddd 30%)">
-      <span class="cv" id="gaGapV">6</span>
+      <span class="cl">Text Color</span>
+      <label style="display:inline-flex;cursor:pointer;flex-shrink:0"><input type="color" id="cpGaTx" value="#1a1a1a"></label>
     </div>
     <div class="cr">
-      <span class="cl">圆角</span>
-      <input type="range" id="gaRadR" min="0" max="20" value="0" style="background:linear-gradient(to right,#5a8a3c 0%,#ddd 0%)">
-      <span class="cv" id="gaRadV">0</span>
+      <span class="cl">Gap</span>
+      <input type="range" id="rGaGap" min="0" max="20" value="6">
+      <span class="cv" id="vGaGap">6</span>
+    </div>
+    <div class="cr">
+      <span class="cl">Radius</span>
+      <input type="range" id="rGaRad" min="0" max="20" value="0">
+      <span class="cv" id="vGaRad">0</span>
     </div>
   </div>
 </div>
 
 <!-- ══ GRID B ══ -->
 
-<div class="mpanel" id="panel-gridB">
+<div class="mp" id="mp-gb">
   <div class="tabs">
-    <button class="tab active" data-panel="gridB" data-tab="photos">照片</button>
-    <button class="tab" data-panel="gridB" data-tab="style">样式</button>
+    <button class="tb on" data-p="gb" data-t="photos">Photos</button>
+    <button class="tb" data-p="gb" data-t="style">Style</button>
   </div>
-  <div class="tc active" id="gridB-tab-photos">
-    <div style="padding:10px 12px 4px">
-      <label class="lbl-btn" style="width:100%;justify-content:center;gap:6px">
-        一次上传多张（最多9张）
-        <input type="file" id="gbMultiFile" accept="image/*" multiple>
+  <div class="tc on" id="gb-photos">
+    <div style="padding:10px 12px 6px">
+      <label class="hbtn" style="width:100%;justify-content:center;border-radius:12px;padding:12px;gap:6px">
+        ＋ Bulk upload (max 9)<input type="file" id="gbMulti" accept="image/*" multiple>
       </label>
     </div>
     <div class="gslots" id="gbSlots"></div>
     <div style="padding:0 12px 8px">
-      <div class="cr" id="gbClearBtn" style="cursor:pointer;justify-content:center">
-        <span style="font-size:14px;color:#e06060">清空全部</span>
+      <div class="cr" id="gbClear" style="cursor:pointer;justify-content:center">
+        <span style="font-size:14px;color:#e06060">Clear all</span>
       </div>
     </div>
   </div>
-  <div class="tc" id="gridB-tab-style">
-    <div class="cr" id="gbBgRow" style="cursor:pointer">
-      <span class="cl">背景色</span>
-      <div class="swatch" id="gbBgSw" style="background:#f0ece4"></div>
-    </div>
-    <div class="cr" id="gbTxtRow" style="cursor:pointer">
-      <span class="cl">文字色</span>
-      <div class="swatch" id="gbTxtSw" style="background:#1a1a1a"></div>
-    </div>
-    <div class="cr" id="gbScaleRow" style="cursor:pointer">
-      <span class="cl">照片大小</span>
-      <div class="sel"><span class="selv" id="gbScaleLbl">中等</span><span class="sela">⌃⌄</span></div>
+  <div class="tc" id="gb-style">
+    <div class="cr">
+      <span class="cl">Background</span>
+      <label style="display:inline-flex;cursor:pointer;flex-shrink:0"><input type="color" id="cpGbBg" value="#f0ece4"></label>
     </div>
     <div class="cr">
-      <span class="cl">随机种子</span>
-      <input type="range" id="gbSeedR" min="0" max="99" value="42" style="background:linear-gradient(to right,#5a8a3c 43%,#ddd 43%)">
-      <span class="cv" id="gbSeedV">42</span>
+      <span class="cl">Text Color</span>
+      <label style="display:inline-flex;cursor:pointer;flex-shrink:0"><input type="color" id="cpGbTx" value="#1a1a1a"></label>
+    </div>
+    <div class="cr" id="rGbScale" style="cursor:pointer">
+      <span class="cl">Photo Size</span><span class="sv" id="vGbScale">Medium</span><span class="sa">⌃⌄</span>
+    </div>
+    <div class="cr">
+      <span class="cl">Random Seed</span>
+      <input type="range" id="rGbSeed" min="0" max="99" value="42">
+      <span class="cv" id="vGbSeed">42</span>
     </div>
   </div>
 </div>
@@ -324,592 +311,695 @@ input[type=color]{position:absolute;opacity:0;width:0;height:0}
 <div class="dov" id="dov"><div class="dbk" id="dbk"></div><div class="dsh" id="dsh"></div></div>
 
 <script>
-// ════════════════════════════════
-//  STATE
-// ════════════════════════════════
-const S = {
-  mode:'dots',
-  mainImg:null, bgImg:null,
-  layout:{arr:'top', ratio:50},
-  bg:{type:'solid', c1:'#e8e3d8', c2:'#c8c0b0', strW:14},
-  dots:{shape:'circle', color:'#5a8a3c', size:28, variance:0, count:18, dist:'random', pos:[], char:'●'},
-  ga:{imgs:new Array(9).fill(null), title:'', captions:'', credit:'', bg:'#f5f2ec', txt:'#1a1a1a', gap:6, rad:0},
-  gb:{imgs:new Array(9).fill(null), bg:'#f0ece4', txt:'#1a1a1a', scale:'medium', seed:42}
+// ══════════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════════
+var ST = {
+  mode: 'dots',
+  mainImg: null,
+  bgImg: null,
+  layout: { arr:'left', ratio:50 },
+  bg: { type:'solid', c1:'#e8e3d8', c2:'#c8c0b0', strW:14 },
+  dots: { shape:'circle', color:'#5a8a3c', size:28, variance:0, count:18, dist:'random', pos:[], char:'●' },
+  ga: { imgs:[], title:'', captions:'', credit:'', bg:'#f5f2ec', txt:'#1a1a1a', gap:6, rad:0 },
+  gb: { imgs:[], bg:'#f0ece4', txt:'#1a1a1a', scale:'medium', seed:42 }
 };
+for(var _i=0;_i<9;_i++){ ST.ga.imgs.push(null); ST.gb.imgs.push(null); }
 
-const cv = document.getElementById('mc');
-const ctx = cv.getContext('2d');
-const ca  = document.getElementById('ca');
-const hint= document.getElementById('hint');
+var cv  = document.getElementById('mc');
+var ctx = cv.getContext('2d');
+var pvEl= document.getElementById('pv');
+function pvW(){ return pvEl.clientWidth; }
+function pvH(){ return pvEl.clientHeight; }
 
-function sz(){ return {w:ca.clientWidth, h:ca.clientHeight}; }
-function render(){ if(S.mode==='dots')rDots(); else if(S.mode==='gridA')rGA(); else rGB(); }
+// ══════════════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════════════
+function render(){
+  if(ST.mode==='dots') renderDots();
+  else if(ST.mode==='ga') renderGA();
+  else renderGB();
+}
 
-// ════════════════════════════════
-//  CANVAS CLICK → upload or tap-place
-// ════════════════════════════════
-ca.addEventListener('click', e=>{
-  if(S.mode==='dots' && (S.dots.dist==='tapL'||S.dots.dist==='tapS')){
-    // tap to place dot
-    const rect=cv.getBoundingClientRect();
-    const scaleX=cv.width/(cv.style.width?parseInt(cv.style.width):cv.width);
-    const scaleY=cv.height/(cv.style.height?parseInt(cv.style.height):cv.height);
-    const rx=(e.clientX-rect.left)/rect.width;
-    const ry=(e.clientY-rect.top)/rect.height;
-    if(S.dots.dist==='tapL'){
-      // asymmetric: just place
-      S.dots.pos.push({x:rx,y:ry});
-    } else {
-      // symmetric: place + mirror
-      S.dots.pos.push({x:rx,y:ry});
-      S.dots.pos.push({x:1-rx,y:ry});
-    }
-    render(); return;
-  }
-  // otherwise open upload
-  const inp=document.createElement('input');
-  inp.type='file'; inp.accept='image/*'; inp.multiple=(S.mode!=='dots');
-  inp.onchange=e2=>handleFiles(e2.target.files);
-  inp.click();
-});
+function setHint(show){
+  document.getElementById('hint').className = show ? 'hint' : 'hint hide';
+}
 
-function handleFiles(files){
-  if(!files||!files.length) return;
-  if(S.mode==='dots'){
-    readImg(files[0], img=>{ S.mainImg=img; render(); });
+// Cover-fit draw
+function coverDraw(img,x,y,w,h,rad){
+  if(!img||w<=0||h<=0) return;
+  var ar=img.naturalWidth/img.naturalHeight, bar=w/h;
+  var sx=0,sy=0,sw=img.naturalWidth,sh=img.naturalHeight;
+  if(ar>bar){ sw=img.naturalHeight*bar; sx=(img.naturalWidth-sw)/2; }
+  else       { sh=img.naturalWidth/bar;  sy=(img.naturalHeight-sh)/2; }
+  if(rad){ ctx.save(); ctx.beginPath(); rrect(x,y,w,h,rad); ctx.clip(); }
+  ctx.drawImage(img,sx,sy,sw,sh,x,y,w,h);
+  if(rad) ctx.restore();
+}
+function rrect(x,y,w,h,r){
+  ctx.moveTo(x+r,y); ctx.lineTo(x+w-r,y); ctx.arcTo(x+w,y,x+w,y+r,r);
+  ctx.lineTo(x+w,y+h-r); ctx.arcTo(x+w,y+h,x+w-r,y+h,r);
+  ctx.lineTo(x+r,y+h); ctx.arcTo(x,y+h,x,y+h-r,r);
+  ctx.lineTo(x,y+r); ctx.arcTo(x,y,x+r,y,r);
+  ctx.closePath();
+}
+
+function drawBgOnCtx(c,w,h){
+  if(ST.bg.type==='stripe'){
+    c.fillStyle=ST.bg.c1; c.fillRect(0,0,w,h);
+    c.fillStyle=ST.bg.c2;
+    for(var x=-h;x<w+h;x+=ST.bg.strW*2) c.fillRect(x,0,ST.bg.strW,h);
+  } else if(ST.bg.type==='photo'&&ST.bgImg){
+    c.drawImage(ST.bgImg,0,0,w,h);
   } else {
-    // find first empty slots
-    const g=S.mode;
-    const arr=S[g].imgs;
-    let si=0;
-    Array.from(files).slice(0,9).forEach(f=>{
-      while(si<9 && arr[si]!==null) si++;
-      if(si>=9) return;
-      const idx=si; si++;
-      readImg(f, img=>{ S[g].imgs[idx]=img; buildSlots(g); render(); });
-    });
+    c.fillStyle=ST.bg.c1; c.fillRect(0,0,w,h);
   }
 }
 
-function readImg(f,cb){
-  const r=new FileReader();
-  r.onload=e=>{ const img=new Image(); img.onload=()=>cb(img); img.src=e.target.result; };
-  r.readAsDataURL(f);
+// Deterministic RNG
+function mkRng(seed){
+  var s=seed;
+  return function(){ s=(s*1664525+1013904223)&0x7fffffff; return s/0x7fffffff; };
 }
 
-// ════════════════════════════════
-//  HEADER UPLOAD
-// ════════════════════════════════
-document.getElementById('hdrFile').addEventListener('change',e=>{ handleFiles(e.target.files); e.target.value=''; });
+// Draw dots onto any canvas context with explicit positions
+function drawDotsOnCtxWithPos(c,w,h,asHole,positions){
+  var br=ST.dots.size/2;
+  var vr=ST.dots.variance/100;
+  var rng=mkRng(42);
+  var color=asHole?'rgba(0,0,0,1)':ST.dots.color;
+  var shape=ST.dots.shape;
 
-// BG photo
-document.getElementById('bgPhotoFile').addEventListener('change',e=>{
-  const f=e.target.files[0]; if(!f)return;
-  readImg(f, img=>{ S.bgImg=img; render(); });
+  for(var i=0;i<positions.length;i++){
+    var p=positions[i];
+    var rv=vr>0?(rng()-0.5)*2*vr:0;
+    var r=Math.max(2, br*(1+rv));
+    var cx=p.x*w, cy=p.y*h;
+
+    c.fillStyle=color;
+    c.strokeStyle=color;
+
+    if(shape==='snowflake'){
+      c.lineWidth=Math.max(1,r*0.2);
+      for(var k=0;k<6;k++){
+        var a=(k/6)*Math.PI*2, bl=r*0.42;
+        c.beginPath(); c.moveTo(cx,cy); c.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r); c.stroke();
+        var bx=cx+Math.cos(a)*r*0.5, by=cy+Math.sin(a)*r*0.5;
+        c.beginPath(); c.moveTo(bx,by); c.lineTo(bx+Math.cos(a+Math.PI/6)*bl,by+Math.sin(a+Math.PI/6)*bl); c.stroke();
+        c.beginPath(); c.moveTo(bx,by); c.lineTo(bx+Math.cos(a-Math.PI/6)*bl,by+Math.sin(a-Math.PI/6)*bl); c.stroke();
+      }
+    } else if(shape==='char'){
+      c.font='bold '+(r*1.9)+'px sans-serif';
+      c.textAlign='center'; c.textBaseline='middle';
+      c.fillText(ST.dots.char||'●',cx,cy);
+    } else {
+      c.beginPath();
+      if(shape==='circle'){
+        c.arc(cx,cy,r,0,Math.PI*2);
+      } else if(shape==='square'){
+        c.rect(cx-r,cy-r,r*2,r*2);
+      } else if(shape==='star'){
+        var rot=(Math.PI/2)*3, step=Math.PI/5;
+        c.moveTo(cx,cy-r);
+        for(var j=0;j<5;j++){
+          c.lineTo(cx+Math.cos(rot)*r,cy+Math.sin(rot)*r); rot+=step;
+          c.lineTo(cx+Math.cos(rot)*(r*0.42),cy+Math.sin(rot)*(r*0.42)); rot+=step;
+        }
+        c.closePath();
+      } else if(shape==='drop'){
+        c.arc(cx,cy-r*0.28,r*0.72,Math.PI,0);
+        c.bezierCurveTo(cx+r*0.72,cy+r*0.2,cx+r*0.3,cy+r,cx,cy+r);
+        c.bezierCurveTo(cx-r*0.3,cy+r,cx-r*0.72,cy+r*0.2,cx-r*0.72,cy-r*0.28);
+        c.closePath();
+      }
+      c.fill();
+    }
+  }
+}
+
+// Draw dots onto any canvas context
+function drawDotsOnCtx(c,w,h,asHole){
+  drawDotsOnCtxWithPos(c,w,h,asHole,ST.dots.pos);
+}
+
+// ── DOTS RENDER ──
+// Symmetric: dots drawn on primary half are mirrored as hollow cutouts on secondary half
+function renderDots(){
+  ctx.setTransform(1,0,0,1,0,0);
+  cv.style.width=''; cv.style.height='';
+  var w=pvW(), h=pvH();
+  cv.width=w; cv.height=h;
+
+  setHint(!ST.mainImg);
+
+  // primary photo rect
+  var arr=ST.layout.arr, ratio=ST.layout.ratio/100;
+  var ix=0,iy=0,iw=w,ih=h;
+  if(arr==='top')          ih=h*ratio;
+  else if(arr==='bottom') { iy=h*(1-ratio); ih=h*ratio; }
+  else if(arr==='left')    iw=w*ratio;
+  else if(arr==='right')  { ix=w*(1-ratio); iw=w*ratio; }
+
+  // secondary rect
+  var sx2=0,sy2=0,sw2=w,sh2=h;
+  if(arr==='top')          { sy2=ih; sh2=h-ih; }
+  else if(arr==='bottom')  { sh2=iy; }
+  else if(arr==='left')    { sx2=iw; sw2=w-iw; }
+  else if(arr==='right')   { sw2=ix; }
+
+  // 1. Draw background everywhere
+  drawBgOnCtx(ctx,w,h);
+
+  if(!ST.mainImg){
+    return;
+  }
+
+  // 2. Draw the photo covering full canvas (needed for dot-reveal in secondary)
+  coverDraw(ST.mainImg,0,0,w,h,0);
+
+  // 3. Primary area: redraw photo with correct crop for that region
+  coverDraw(ST.mainImg,ix,iy,iw,ih,0);
+
+  // Compute mirrored positions for secondary (symmetric across split axis)
+  // Primary positions → mirrored into secondary coordinates
+  function mirrorPos(p){
+    if(arr==='left'){
+      // primary: x in [0, ratio], secondary: x in [ratio, 1]
+      // mirror: x' = ratio + (ratio - p.x) = 2*ratio - p.x, mapped into [ratio,1]
+      return {x: 2*ratio - p.x, y: p.y};
+    } else if(arr==='right'){
+      // primary: x in [1-ratio, 1], mirror into [0, 1-ratio]
+      return {x: 2*(1-ratio) - p.x, y: p.y};
+    } else if(arr==='top'){
+      return {x: p.x, y: 2*ratio - p.y};
+    } else { // bottom
+      return {x: p.x, y: 2*(1-ratio) - p.y};
+    }
+  }
+
+  // Build mirrored pos array
+  var mirroredPos = ST.dots.pos.map(mirrorPos);
+
+  // 4. Secondary area overlay: bg colour with mirrored dot holes (cutout effect)
+  var tmp=document.createElement('canvas');
+  tmp.width=w; tmp.height=h;
+  var tc=tmp.getContext('2d');
+
+  tc.save();
+  tc.beginPath(); tc.rect(sx2,sy2,sw2,sh2); tc.clip();
+  drawBgOnCtx(tc,w,h);
+  // Punch mirrored holes
+  tc.globalCompositeOperation='destination-out';
+  drawDotsOnCtxWithPos(tc,w,h,true,mirroredPos);
+  tc.restore();
+
+  ctx.drawImage(tmp,0,0);
+
+  // 5. Primary area: draw solid filled dots on top of the photo
+  ctx.save();
+  ctx.beginPath(); ctx.rect(ix,iy,iw,ih); ctx.clip();
+  drawDotsOnCtxWithPos(ctx,w,h,false,ST.dots.pos);
+  ctx.restore();
+}
+
+// ── GRID A ──
+function lighten(hex,amt){
+  var n=parseInt(hex.replace('#',''),16);
+  return '#'+[((n>>16)&255),((n>>8)&255),(n&255)].map(function(x){
+    return Math.min(255,x+Math.round(amt*255)).toString(16).padStart(2,'0');
+  }).join('');
+}
+
+function renderGA(){
+  var DPR=Math.min(window.devicePixelRatio||1,2);
+  var vw=pvW(), vh=pvH();
+  var ASPECT=3/4.5, cw=vw, ch=vh;
+  if(cw/ch>ASPECT) cw=Math.floor(ch*ASPECT);
+  else ch=Math.floor(cw/ASPECT);
+  cv.width=cw*DPR; cv.height=ch*DPR;
+  cv.style.width=cw+'px'; cv.style.height=ch+'px';
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+
+  var ga=ST.ga;
+  setHint(!ga.imgs.some(function(x){return x;}));
+  ctx.fillStyle=ga.bg; ctx.fillRect(0,0,cw,ch);
+
+  var PAD=cw*0.055, GAP=ga.gap, RAD=ga.rad, fs=cw*0.033;
+  var titleH=fs*2.2, labelH=fs*2;
+  var caps=(ga.captions||'').split('\n').filter(function(l){return l.trim();});
+  var bH=caps.length>0?caps.length*fs*1.55+fs*2.5:fs*1.5;
+  var gridH=ch-PAD-titleH-PAD*0.4-3*labelH-PAD-bH;
+  var cellH=(gridH-2*GAP)/3, cellW=(cw-2*PAD-2*GAP)/3;
+
+  ctx.fillStyle=ga.txt;
+  ctx.font=fs+'px -apple-system,sans-serif';
+  ctx.textBaseline='alphabetic'; ctx.textAlign='left';
+  if(ga.title) ctx.fillText(ga.title,PAD,PAD+titleH*0.75);
+
+  var startY=PAD+titleH+PAD*0.2;
+  for(var i=0;i<9;i++){
+    var col=i%3, row=Math.floor(i/3);
+    var cx=PAD+col*(cellW+GAP), cy=startY+row*(cellH+GAP+labelH);
+    if(ga.imgs[i]){ coverDraw(ga.imgs[i],cx,cy,cellW,cellH,RAD); }
+    else{ ctx.fillStyle=lighten(ga.bg,0.06); ctx.beginPath(); rrect(cx,cy,cellW,cellH,RAD); ctx.fill(); }
+    ctx.fillStyle=ga.txt;
+    ctx.font=(fs*0.85)+'px -apple-system,sans-serif';
+    ctx.textAlign='center'; ctx.textBaseline='alphabetic';
+    ctx.fillText('('+(i+1)+')',cx+cellW/2,cy+cellH+labelH*0.72);
+  }
+  var bY=startY+3*(cellH+GAP+labelH)+PAD*0.2;
+  ctx.textAlign='left'; ctx.font=(fs*0.85)+'px -apple-system,sans-serif'; ctx.fillStyle=ga.txt;
+  caps.forEach(function(l,i){ ctx.fillText(l,PAD,bY+fs+i*(fs*1.55)); });
+  if(ga.credit){
+    ctx.textAlign='right'; ctx.font=(fs*0.75)+'px -apple-system,sans-serif';
+    ctx.fillStyle=ga.txt+'88'; ctx.fillText(ga.credit,cw-PAD,ch-PAD*0.5);
+  }
+}
+
+// ── GRID B ── FIX #5: bigger size/position variation
+// More spread-out, varied sizes, different aspect ratios
+var SPOS=[
+  // {nx, ny, ar, scMul} — scMul multiplies base scale
+  {nx:.03, ny:.02, ar:.85,  scMul:0.85},
+  {nx:.48, ny:.00, ar:.80,  scMul:1.1 },
+  {nx:.70, ny:.10, ar:.72,  scMul:0.9 },
+  {nx:.01, ny:.30, ar:1.05, scMul:1.0 },
+  {nx:.28, ny:.23, ar:1.1,  scMul:1.2 },
+  {nx:.62, ny:.28, ar:1.3,  scMul:0.85},
+  {nx:.02, ny:.60, ar:1.45, scMul:1.15},
+  {nx:.32, ny:.65, ar:1.4,  scMul:0.9 },
+  {nx:.62, ny:.56, ar:.80,  scMul:1.1 }
+];
+
+function renderGB(){
+  var DPR=Math.min(window.devicePixelRatio||1,2);
+  var vw=pvW(), vh=pvH();
+  var ASPECT=3/4, cw=vw, ch=vh;
+  if(cw/ch>ASPECT) cw=Math.floor(ch*ASPECT);
+  else ch=Math.floor(cw/ASPECT);
+  cv.width=cw*DPR; cv.height=ch*DPR;
+  cv.style.width=cw+'px'; cv.style.height=ch+'px';
+  ctx.setTransform(DPR,0,0,DPR,0,0);
+
+  var gb=ST.gb;
+  setHint(!gb.imgs.some(function(x){return x;}));
+  ctx.fillStyle=gb.bg; ctx.fillRect(0,0,cw,ch);
+
+  var sm={small:.17, medium:.26, large:.36};
+  var base=sm[gb.scale]||.26;
+  var rng=mkRng(gb.seed*7919+13);
+
+  // Collect active images
+  var imgs=[];
+  for(var i=0;i<9;i++){ if(gb.imgs[i]) imgs.push({img:gb.imgs[i],idx:i}); }
+
+  // ~50% chance this seed avoids collisions, ~50% allows them
+  var avoidCollision=(gb.seed%2===0);
+  var placed=[];
+  var MARGIN=cw*0.015;
+
+  function overlaps(ax,ay,aw,ah){
+    for(var k=0;k<placed.length;k++){
+      var b=placed[k];
+      if(ax<b.x+b.w+MARGIN && ax+aw+MARGIN>b.x &&
+         ay<b.y+b.h+MARGIN && ay+ah+MARGIN>b.y) return true;
+    }
+    return false;
+  }
+
+  var items=[];
+  for(var ii=0;ii<imgs.length;ii++){
+    var entry=imgs[ii];
+    var p=SPOS[entry.idx];
+    var sc=base*p.scMul*(1+(rng()-0.5)*0.40);
+    var iw=cw*sc, ih=iw/p.ar;
+
+    var jx=(rng()-0.5)*0.30, jy=(rng()-0.5)*0.25;
+    var nx=Math.max(0.01,Math.min(p.nx+jx, 1-iw/cw-0.01));
+    var ny=Math.max(0.01,Math.min(p.ny+jy, 1-ih/ch-0.04));
+
+    if(avoidCollision && overlaps(nx*cw,ny*ch,iw,ih)){
+      // try up to 30 random positions
+      for(var t=0;t<30;t++){
+        nx=rng()*(1-iw/cw-0.02)+0.01;
+        ny=rng()*(1-ih/ch-0.06)+0.01;
+        if(!overlaps(nx*cw,ny*ch,iw,ih)) break;
+      }
+    }
+
+    var ix2=nx*cw, iy2=ny*ch;
+    placed.push({x:ix2,y:iy2,w:iw,h:ih});
+    items.push({img:entry.img,ix2:ix2,iy2:iy2,iw:iw,ih:ih,idx:entry.idx});
+  }
+
+  // draw images first
+  for(var di=0;di<items.length;di++){
+    var it=items[di];
+    ctx.save();
+    ctx.shadowColor='rgba(0,0,0,.15)'; ctx.shadowBlur=8; ctx.shadowOffsetY=3;
+    coverDraw(it.img,it.ix2,it.iy2,it.iw,it.ih,2); ctx.restore();
+  }
+  // draw labels on top of all images
+  var nf=cw*0.022;
+  ctx.fillStyle=gb.txt;
+  ctx.font=nf+'px -apple-system,sans-serif';
+  ctx.textAlign='left'; ctx.textBaseline='alphabetic';
+  for(var li=0;li<items.length;li++){
+    var it3=items[li];
+    ctx.fillText('('+('0'+(it3.idx+1)).slice(-2)+')',it3.ix2+2,it3.iy2+it3.ih+nf*1.4);
+  }
+}
+
+// ══════════════════════════════════════════════
+// DOT POSITIONS
+// ══════════════════════════════════════════════
+function genPos(){
+  var w=pvW(), h=pvH(), n=ST.dots.count, pos=[];
+  var arr=ST.layout.arr;
+  var horiz=(arr==='left'||arr==='right'); // split axis
+  // Generate n base positions in the primary half [0..0.5 on split axis]
+  // then mirror each to secondary half — giving symmetric dot layout
+  if(ST.dots.dist==='random'){
+    for(var i=0;i<n;i++){
+      var bx=Math.random(), by=Math.random();
+      // place base in full canvas, mirror on split axis
+      pos.push({x:bx, y:by});
+    }
+  } else if(ST.dots.dist==='grid'){
+    var cols=Math.ceil(Math.sqrt(n*(w/h))), rows=Math.ceil(n/cols), c=0;
+    for(var r=0;r<rows&&c<n;r++)
+      for(var cl=0;cl<cols&&c<n;cl++,c++)
+        pos.push({x:(cl+.5)/cols+(Math.random()-0.5)*0.04,
+                  y:(r+.5)/rows+(Math.random()-0.5)*0.04});
+  }
+  ST.dots.pos=pos;
+}
+
+// ══════════════════════════════════════════════
+// TAP OVERLAY
+// ══════════════════════════════════════════════
+var tapOv=document.getElementById('tapOv');
+function tapPlace(rx,ry){
+  if(ST.dots.dist==='tapS'){
+    var arr=ST.layout.arr, ratio=ST.layout.ratio/100;
+    var mx, my;
+    if(arr==='left'||arr==='right'){
+      // mirror x across ratio boundary
+      var splitX = arr==='left' ? ratio : 1-ratio;
+      mx = 2*splitX - rx; my = ry;
+    } else {
+      var splitY = arr==='top' ? ratio : 1-ratio;
+      mx = rx; my = 2*splitY - ry;
+    }
+    ST.dots.pos.push({x:rx,y:ry},{x:mx,y:my});
+  } else {
+    ST.dots.pos.push({x:rx,y:ry});
+  }
+  render();
+}
+tapOv.addEventListener('click',function(e){
+  var r=cv.getBoundingClientRect();
+  tapPlace((e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height);
+});
+tapOv.addEventListener('touchend',function(e){
+  e.preventDefault();
+  var t=e.changedTouches[0], r=cv.getBoundingClientRect();
+  tapPlace((t.clientX-r.left)/r.width,(t.clientY-r.top)/r.height);
+},{passive:false});
+
+function setTapUI(on){
+  tapOv.className=on?'on':'';
+  document.getElementById('gUndo').style.display=on?'block':'none';
+  document.getElementById('tapInfo').style.display=on?'block':'none';
+  document.getElementById('rndBtn').textContent=on?'Clear dots':'Randomize';
+}
+
+// ══════════════════════════════════════════════
+// FILE LOADING
+// ══════════════════════════════════════════════
+function readImg(file,cb){
+  var fr=new FileReader();
+  fr.onload=function(e){ var img=new Image(); img.onload=function(){cb(img);}; img.src=e.target.result; };
+  fr.readAsDataURL(file);
+}
+function loadFiles(files){
+  if(!files||!files.length) return;
+  if(ST.mode==='dots'){
+    readImg(files[0],function(img){ ST.mainImg=img; render(); });
+  } else {
+    var arr=ST.mode==='ga'?ST.ga.imgs:ST.gb.imgs;
+    var si=0;
+    for(var f=0;f<files.length&&f<9;f++){
+      while(si<9&&arr[si]!==null) si++;
+      if(si>=9) break;
+      (function(idx,file){ readImg(file,function(img){ arr[idx]=img; buildSlots(ST.mode); render(); }); })(si,files[f]);
+      si++;
+    }
+  }
+}
+document.getElementById('hdrFile').addEventListener('change',function(e){ loadFiles(e.target.files); e.target.value=''; });
+document.getElementById('hintFile').addEventListener('change',function(e){ loadFiles(e.target.files); e.target.value=''; });
+document.getElementById('bgPF').addEventListener('change',function(e){
+  if(!e.target.files[0]) return;
+  readImg(e.target.files[0],function(img){ ST.bgImg=img; render(); });
   e.target.value='';
 });
 
-// ════════════════════════════════
-//  DOTS RENDER  — FIX#1: mask shape (cutout from solid color overlay)
-// ════════════════════════════════
-function genPos(){
-  const{w,h}=sz(), n=S.dots.count, pos=[];
-  if(S.dots.dist==='random'){
-    for(let i=0;i<n;i++) pos.push({x:Math.random(),y:Math.random()});
-  } else if(S.dots.dist==='grid'){
-    const cols=Math.ceil(Math.sqrt(n*(w/h))), rows=Math.ceil(n/cols); let c=0;
-    for(let r=0;r<rows&&c<n;r++) for(let cl=0;cl<cols&&c<n;cl++,c++)
-      pos.push({x:(cl+.5)/cols+(Math.random()-.5)*.04, y:(r+.5)/rows+(Math.random()-.5)*.04});
-  }
-  // tap modes keep pos as-is (user places manually)
-  S.dots.pos=pos;
-}
-
-function makeShapePath(c2,shape,cx,cy,r,char){
-  c2.beginPath();
-  if(shape==='circle'){ c2.arc(cx,cy,r,0,Math.PI*2); }
-  else if(shape==='square'){ c2.rect(cx-r,cy-r,r*2,r*2); }
-  else if(shape==='star'){
-    let rot=(Math.PI/2)*3,step=Math.PI/5;
-    c2.moveTo(cx,cy-r);
-    for(let i=0;i<5;i++){ c2.lineTo(cx+Math.cos(rot)*r,cy+Math.sin(rot)*r); rot+=step; c2.lineTo(cx+Math.cos(rot)*(r*.4),cy+Math.sin(rot)*(r*.4)); rot+=step; }
-    c2.closePath();
-  } else if(shape==='drop'){
-    c2.arc(cx,cy-r*.3,r*.7,Math.PI,0);
-    c2.bezierCurveTo(cx+r*.7,cy+r*.2,cx+r*.3,cy+r,cx,cy+r);
-    c2.bezierCurveTo(cx-r*.3,cy+r,cx-r*.7,cy+r*.2,cx-r*.7,cy-r*.3);
-    c2.closePath();
-  } else if(shape==='snowflake'){
-    for(let i=0;i<6;i++){
-      const a=(i/6)*Math.PI*2,bl=r*.4;
-      c2.moveTo(cx,cy); c2.lineTo(cx+Math.cos(a)*r,cy+Math.sin(a)*r);
-      const bx=cx+Math.cos(a)*r*.5,by=cy+Math.sin(a)*r*.5;
-      c2.moveTo(bx,by); c2.lineTo(bx+Math.cos(a+Math.PI/6)*bl,by+Math.sin(a+Math.PI/6)*bl);
-      c2.moveTo(bx,by); c2.lineTo(bx+Math.cos(a-Math.PI/6)*bl,by+Math.sin(a-Math.PI/6)*bl);
-    }
-  }
-}
-
-function coverDraw(c2,img,x,y,w,h,r=0){
-  if(!img)return;
-  const ar=img.naturalWidth/img.naturalHeight,bar=w/h;
-  let sx=0,sy=0,sw=img.naturalWidth,sh=img.naturalHeight;
-  if(ar>bar){sw=img.naturalHeight*bar;sx=(img.naturalWidth-sw)/2;}
-  else{sh=img.naturalWidth/bar;sy=(img.naturalHeight-sh)/2;}
-  if(r>0){ c2.save(); c2.beginPath(); rrect(c2,x,y,w,h,r); c2.clip(); }
-  c2.drawImage(img,sx,sy,sw,sh,x,y,w,h);
-  if(r>0) c2.restore();
-}
-
-function rrect(c2,x,y,w,h,r){
-  c2.moveTo(x+r,y); c2.lineTo(x+w-r,y); c2.arcTo(x+w,y,x+w,y+r,r);
-  c2.lineTo(x+w,y+h-r); c2.arcTo(x+w,y+h,x+w-r,y+h,r);
-  c2.lineTo(x+r,y+h); c2.arcTo(x,y+h,x,y+h-r,r);
-  c2.lineTo(x,y+r); c2.arcTo(x,y,x+r,y,r);
-}
-
-function drawBg(c2,w,h){
-  if(S.bg.type==='solid'){ c2.fillStyle=S.bg.c1; c2.fillRect(0,0,w,h); }
-  else if(S.bg.type==='stripe'){
-    c2.fillStyle=S.bg.c1; c2.fillRect(0,0,w,h);
-    c2.fillStyle=S.bg.c2;
-    const sw=S.bg.strW;
-    for(let x=-h;x<w+h;x+=sw*2) c2.fillRect(x,0,sw,h);
-  } else if(S.bg.type==='photo'&&S.bgImg){ c2.drawImage(S.bgImg,0,0,w,h); }
-  else{ c2.fillStyle=S.bg.c1; c2.fillRect(0,0,w,h); }
-}
-
-function rDots(){
-  ctx.setTransform(1,0,0,1,0,0);
-  cv.style.width=''; cv.style.height='';
-  const{w,h}=sz();
-  cv.width=w; cv.height=h;
-  hint.style.display=S.mainImg?'none':'flex';
-
-  const arr=S.layout.arr, ratio=S.layout.ratio/100;
-  let ix=0,iy=0,iw=w,ih=h;
-  if(arr==='top') ih=h*ratio;
-  else if(arr==='bottom'){iy=h*(1-ratio);ih=h*ratio;}
-  else if(arr==='left') iw=w*ratio;
-  else if(arr==='right'){ix=w*(1-ratio);iw=w*ratio;}
-
-  // FIX#1: draw photo first, then draw colored overlay with shape cutouts
-  // Left/top side: photo; right/bottom side: bg with cutouts showing photo
-  // Actually: draw bg everywhere, then photo in main area, then overlay bg on secondary area with shape masks cut out
-
-  // Step 1: draw bg (full canvas)
-  drawBg(ctx,w,h);
-
-  // Step 2: draw photo in primary area
-  if(S.mainImg) coverDraw(ctx,S.mainImg,ix,iy,iw,ih);
-
-  // Step 3: draw secondary area = bg color with shape holes revealing photo beneath
-  // secondary area
-  let sx2=0,sy2=0,sw2=w,sh2=h;
-  if(arr==='top'){sy2=ih;sh2=h-ih;}
-  else if(arr==='bottom'){sh2=iy;}
-  else if(arr==='left'){sx2=iw;sw2=w-iw;}
-  else if(arr==='right'){sw2=ix;}
-
-  // Draw dots as mask cutouts: use 'destination-out' on a temp canvas
-  // OR: draw overlay rect, then use clip for each dot shape
-
-  // Approach: for each dot draw the photo-revealing hole
-  const baseR=S.dots.size/2, vari=S.dots.variance/100;
-
-  if(S.mainImg){
-    // Re-draw photo as full canvas (hidden under overlay)
-    // Draw the full photo scaled to cover full canvas (for the dot-reveal effect)
-    // We need photo displayed in both halves for the cutout effect
-
-    // Overlay: draw color over secondary region
-    ctx.save();
-    ctx.beginPath();
-    ctx.rect(sx2,sy2,sw2,sh2);
-    ctx.clip();
-
-    // fill secondary with bg color (opaque)
-    drawBg(ctx,w,h);
-
-    // now cut holes using composite
-    ctx.globalCompositeOperation='destination-out';
-    for(const p of S.dots.pos){
-      const r2=Math.max(2,baseR*(1+(Math.random()*2-1)*vari));
-      const cx2=p.x*w, cy2=p.y*h;
-      if(S.dots.shape==='snowflake'){
-        ctx.strokeStyle='rgba(0,0,0,1)';
-        ctx.lineWidth=r2*.22;
-        for(let i=0;i<6;i++){
-          const a=(i/6)*Math.PI*2,bl=r2*.4;
-          ctx.beginPath();ctx.moveTo(cx2,cy2);ctx.lineTo(cx2+Math.cos(a)*r2,cy2+Math.sin(a)*r2);ctx.stroke();
-          const bx=cx2+Math.cos(a)*r2*.5,by=cy2+Math.sin(a)*r2*.5;
-          ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(bx+Math.cos(a+Math.PI/6)*bl,by+Math.sin(a+Math.PI/6)*bl);ctx.stroke();
-          ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(bx+Math.cos(a-Math.PI/6)*bl,by+Math.sin(a-Math.PI/6)*bl);ctx.stroke();
-        }
-      } else if(S.dots.shape==='char'){
-        ctx.font=`bold ${r2*1.8}px sans-serif`;
-        ctx.textAlign='center';ctx.textBaseline='middle';
-        ctx.fillStyle='rgba(0,0,0,1)';
-        ctx.fillText(S.dots.char||'●',cx2,cy2);
-      } else {
-        makeShapePath(ctx,S.dots.shape,cx2,cy2,r2,S.dots.char);
-        ctx.fillStyle='rgba(0,0,0,1)';
-        ctx.fill();
-      }
-    }
-    ctx.globalCompositeOperation='destination-over';
-    // draw photo behind the holes
-    coverDraw(ctx,S.mainImg,0,0,w,h);
-    ctx.restore();
-    ctx.globalCompositeOperation='source-over';
-  } else {
-    // no photo: just draw colored dots
-    for(const p of S.dots.pos){
-      const r2=Math.max(2,baseR*(1+(Math.random()*2-1)*vari));
-      const cx2=p.x*w, cy2=p.y*h;
-      ctx.fillStyle=S.dots.color;
-      if(S.dots.shape==='snowflake'){
-        ctx.strokeStyle=S.dots.color; ctx.lineWidth=r2*.18;
-        for(let i=0;i<6;i++){
-          const a=(i/6)*Math.PI*2,bl=r2*.4;
-          ctx.beginPath();ctx.moveTo(cx2,cy2);ctx.lineTo(cx2+Math.cos(a)*r2,cy2+Math.sin(a)*r2);ctx.stroke();
-          const bx=cx2+Math.cos(a)*r2*.5,by=cy2+Math.sin(a)*r2*.5;
-          ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(bx+Math.cos(a+Math.PI/6)*bl,by+Math.sin(a+Math.PI/6)*bl);ctx.stroke();
-          ctx.beginPath();ctx.moveTo(bx,by);ctx.lineTo(bx+Math.cos(a-Math.PI/6)*bl,by+Math.sin(a-Math.PI/6)*bl);ctx.stroke();
-        }
-      } else if(S.dots.shape==='char'){
-        ctx.font=`bold ${r2*1.8}px sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';
-        ctx.fillText(S.dots.char||'●',cx2,cy2);
-      } else {
-        makeShapePath(ctx,S.dots.shape,cx2,cy2,r2,S.dots.char);
-        ctx.fill();
-      }
-    }
-  }
-}
-
-// ════════════════════════════════
-//  GRID A RENDER
-// ════════════════════════════════
-function mixC(hex,amt){
-  const n=parseInt(hex.replace('#',''),16);
-  return '#'+[((n>>16)&0xff),(( n>>8)&0xff),(n&0xff)].map(x=>Math.min(255,x+Math.round(amt*255)).toString(16).padStart(2,'0')).join('');
-}
-function rGA(){
-  const DPR=Math.min(window.devicePixelRatio||1,2);
-  const{w:vw,h:vh}=sz();
-  const ASPECT=3/4.5; let cw=vw,ch=vh;
-  if(cw/ch>ASPECT) cw=ch*ASPECT; else ch=cw/ASPECT;
-  cw=Math.floor(cw); ch=Math.floor(ch);
-  cv.width=cw*DPR; cv.height=ch*DPR;
-  cv.style.width=cw+'px'; cv.style.height=ch+'px';
-  ctx.setTransform(DPR,0,0,DPR,0,0);
-  const GA=S.ga;
-  hint.style.display=GA.imgs.some(Boolean)?'none':'flex';
-  ctx.fillStyle=GA.bg; ctx.fillRect(0,0,cw,ch);
-  const PAD=cw*0.055, GAP=GA.gap, RAD=GA.rad, fs=cw*0.033;
-  const titleH=fs*2.2, labelH=fs*2;
-  const caps=(GA.captions||'').split('\n').filter(l=>l.trim());
-  const bottomH=caps.length>0?(caps.length*fs*1.55+fs*2.5):fs*1.5;
-  const gridH=ch-PAD-titleH-PAD*0.4-3*labelH-PAD-bottomH;
-  const cellH=(gridH-2*GAP)/3, cellW=(cw-2*PAD-2*GAP)/3;
-  ctx.fillStyle=GA.txt;
-  ctx.font=`${fs}px -apple-system,'Helvetica Neue',sans-serif`;
-  ctx.textBaseline='alphabetic'; ctx.textAlign='left';
-  if(GA.title) ctx.fillText(GA.title,PAD,PAD+titleH*0.75);
-  const startY=PAD+titleH+PAD*0.2;
-  for(let i=0;i<9;i++){
-    const col=i%3, row=Math.floor(i/3);
-    const x=PAD+col*(cellW+GAP), y=startY+row*(cellH+GAP+labelH);
-    if(GA.imgs[i]){ coverDraw(ctx,GA.imgs[i],x,y,cellW,cellH,RAD); }
-    else{ ctx.fillStyle=mixC(GA.bg,0.06); ctx.beginPath(); rrect(ctx,x,y,cellW,cellH,RAD); ctx.fill(); }
-    ctx.fillStyle=GA.txt;
-    ctx.font=`${fs*0.85}px -apple-system,'Helvetica Neue',sans-serif`;
-    ctx.textAlign='center'; ctx.textBaseline='alphabetic';
-    ctx.fillText(`(${i+1})`,x+cellW/2,y+cellH+labelH*0.72);
-  }
-  const bY=startY+3*(cellH+GAP+labelH)+PAD*0.2;
-  ctx.textAlign='left'; ctx.font=`${fs*0.85}px -apple-system,'Helvetica Neue',sans-serif`; ctx.fillStyle=GA.txt;
-  caps.forEach((l,i)=>ctx.fillText(l,PAD,bY+fs+i*(fs*1.55)));
-  if(GA.credit){ ctx.textAlign='right'; ctx.font=`${fs*0.75}px -apple-system,'Helvetica Neue',sans-serif`; ctx.fillStyle=GA.txt+'88'; ctx.fillText(GA.credit,cw-PAD,ch-PAD*0.5); }
-}
-
-// ════════════════════════════════
-//  GRID B RENDER
-// ════════════════════════════════
-function srand(seed){ let s=seed; return()=>{ s=(s*1664525+1013904223)&0xffffffff; return(s>>>0)/0xffffffff; }; }
-const SPOS=[
-  {nx:0.04,ny:0.03,ar:0.82},{nx:0.44,ny:0.00,ar:0.82},{nx:0.68,ny:0.13,ar:0.75},
-  {nx:0.02,ny:0.33,ar:1.0},{nx:0.29,ny:0.26,ar:1.05},{nx:0.65,ny:0.30,ar:1.25},
-  {nx:0.04,ny:0.60,ar:1.35},{nx:0.31,ny:0.63,ar:1.35},{nx:0.60,ny:0.57,ar:0.82}
-];
-function rGB(){
-  const DPR=Math.min(window.devicePixelRatio||1,2);
-  const{w:vw,h:vh}=sz();
-  const ASPECT=3/4; let cw=vw,ch=vh;
-  if(cw/ch>ASPECT) cw=ch*ASPECT; else ch=cw/ASPECT;
-  cw=Math.floor(cw); ch=Math.floor(ch);
-  cv.width=cw*DPR; cv.height=ch*DPR;
-  cv.style.width=cw+'px'; cv.style.height=ch+'px';
-  ctx.setTransform(DPR,0,0,DPR,0,0);
-  const GB=S.gb;
-  hint.style.display=GB.imgs.some(Boolean)?'none':'flex';
-  ctx.fillStyle=GB.bg; ctx.fillRect(0,0,cw,ch);
-  const sm={small:0.20,medium:0.28,large:0.37};
-  const base=sm[GB.scale]||0.28;
-  const rand=srand(GB.seed*7919+13);
-  for(let i=0;i<9;i++){
-    const img=GB.imgs[i]; if(!img)continue;
-    const p=SPOS[i];
-    const jx=(rand()-.5)*0.03, jy=(rand()-.5)*0.03;
-    const nx=Math.max(0,Math.min(p.nx+jx,0.88)), ny=Math.max(0,Math.min(p.ny+jy,0.85));
-    const sc=base+(rand()-.5)*0.04;
-    const iw=cw*sc, ih=iw/p.ar, ix=nx*cw, iy=ny*ch;
-    ctx.save(); ctx.shadowColor='rgba(0,0,0,0.10)'; ctx.shadowBlur=8; ctx.shadowOffsetY=3;
-    coverDraw(ctx,img,ix,iy,iw,ih,2); ctx.restore();
-    const nf=cw*0.022;
-    ctx.fillStyle=GB.txt; ctx.font=`${nf}px -apple-system,'Helvetica Neue',sans-serif`;
-    ctx.textAlign='left'; ctx.textBaseline='alphabetic';
-    ctx.fillText(`(${String(i+1).padStart(2,'0')})`,ix+2,iy+ih+nf*1.4);
-  }
-}
-
-// ════════════════════════════════
-//  SLOTS UI
-// ════════════════════════════════
-function buildSlots(g){
-  const cont=document.getElementById(g==='gridA'?'gaSlots':'gbSlots');
+// ══════════════════════════════════════════════
+// SLOTS
+// ══════════════════════════════════════════════
+function buildSlots(mode){
+  var arr=mode==='ga'?ST.ga.imgs:ST.gb.imgs;
+  var cont=document.getElementById(mode+'Slots');
   cont.innerHTML='';
-  S[g].imgs.forEach((img,i)=>{
-    const slot=document.createElement('div');
-    slot.className='gslot'+(img?' filled':'');
-    if(img){
-      const el=document.createElement('img'); el.src=img.src; slot.appendChild(el);
-      const sn=document.createElement('div'); sn.className='snum'; sn.textContent=i+1; slot.appendChild(sn);
-      const rm=document.createElement('div'); rm.className='srm'; rm.textContent='×';
-      rm.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();S[g].imgs[i]=null;buildSlots(g);render();});
-      slot.appendChild(rm);
-    } else {
-      const pl=document.createElement('span'); pl.className='splus'; pl.textContent='+'; slot.appendChild(pl);
-      const idx=document.createElement('div'); idx.className='sidx'; idx.textContent=i+1; slot.appendChild(idx);
-    }
-    // individual slot file input
-    const lbl=document.createElement('label'); lbl.className='slbl';
-    const inp=document.createElement('input'); inp.type='file'; inp.accept='image/*';
-    inp.addEventListener('change',e=>{
-      const f=e.target.files[0]; if(!f)return;
-      readImg(f,im=>{ S[g].imgs[i]=im; buildSlots(g); render(); });
-      e.target.value='';
-    });
-    lbl.appendChild(inp); slot.appendChild(lbl);
-    cont.appendChild(slot);
-  });
+  for(var i=0;i<9;i++){
+    (function(idx){
+      var img=arr[idx];
+      var slot=document.createElement('div');
+      slot.className='gslot'+(img?' has':'');
+      if(img){
+        var el=document.createElement('img'); el.src=img.src; slot.appendChild(el);
+        var sn=document.createElement('div'); sn.className='snum'; sn.textContent=idx+1; slot.appendChild(sn);
+        var rm=document.createElement('button'); rm.className='srm'; rm.textContent='×'; rm.type='button';
+        rm.addEventListener('click',function(e){ e.stopPropagation(); arr[idx]=null; buildSlots(mode); render(); });
+        slot.appendChild(rm);
+      } else {
+        var pl=document.createElement('span'); pl.className='splus'; pl.textContent='+'; slot.appendChild(pl);
+        var si=document.createElement('div'); si.className='sidx'; si.textContent=idx+1; slot.appendChild(si);
+      }
+      var lbl=document.createElement('label'); lbl.className='slbl';
+      var inp=document.createElement('input'); inp.type='file'; inp.accept='image/*';
+      inp.addEventListener('change',function(e){
+        if(!e.target.files[0]) return;
+        (function(file){ readImg(file,function(im){ arr[idx]=im; buildSlots(mode); render(); }); })(e.target.files[0]);
+        e.target.value='';
+      });
+      lbl.appendChild(inp); slot.appendChild(lbl);
+      cont.appendChild(slot);
+    })(i);
+  }
 }
-buildSlots('gridA'); buildSlots('gridB');
+buildSlots('ga'); buildSlots('gb');
 
-// FIX#7: bulk upload
-function setupBulk(fileId,g){
-  document.getElementById(fileId).addEventListener('change',e=>{
-    let si=0;
-    Array.from(e.target.files).slice(0,9).forEach(f=>{
-      while(si<9&&S[g].imgs[si]!==null) si++;
-      if(si>=9)return;
-      const idx=si; si++;
-      readImg(f,img=>{ S[g].imgs[idx]=img; buildSlots(g); render(); });
-    });
+function bulkLoad(fileId,mode){
+  document.getElementById(fileId).addEventListener('change',function(e){
+    var arr=mode==='ga'?ST.ga.imgs:ST.gb.imgs;
+    var files=e.target.files, si=0;
+    for(var f=0;f<files.length&&f<9;f++){
+      while(si<9&&arr[si]!==null) si++;
+      if(si>=9) break;
+      (function(idx,file){ readImg(file,function(img){ arr[idx]=img; buildSlots(mode); render(); }); })(si,files[f]);
+      si++;
+    }
     e.target.value='';
   });
 }
-setupBulk('gaMultiFile','gridA');
-setupBulk('gbMultiFile','gridB');
+bulkLoad('gaMulti','ga'); bulkLoad('gbMulti','gb');
+document.getElementById('gaClear').addEventListener('click',function(){ for(var i=0;i<9;i++) ST.ga.imgs[i]=null; buildSlots('ga'); render(); });
+document.getElementById('gbClear').addEventListener('click',function(){ for(var i=0;i<9;i++) ST.gb.imgs[i]=null; buildSlots('gb'); render(); });
 
-document.getElementById('gaClearBtn').addEventListener('click',()=>{S.ga.imgs=new Array(9).fill(null);buildSlots('gridA');render();});
-document.getElementById('gbClearBtn').addEventListener('click',()=>{S.gb.imgs=new Array(9).fill(null);buildSlots('gridB');render();});
-
-// ════════════════════════════════
-//  MODE SWITCH
-// ════════════════════════════════
-document.querySelectorAll('.mode-btn').forEach(btn=>{
-  btn.addEventListener('click',()=>{
-    document.querySelectorAll('.mode-btn').forEach(b=>b.classList.remove('active'));
-    btn.classList.add('active');
-    S.mode=btn.dataset.mode;
-    document.querySelectorAll('.mpanel').forEach(p=>p.classList.remove('active'));
-    document.getElementById('panel-'+S.mode).classList.add('active');
-    if(S.mode==='dots'){ ctx.setTransform(1,0,0,1,0,0); cv.style.width=''; cv.style.height=''; }
-    // update tap hint visibility
-    updateDistUI();
+// ══════════════════════════════════════════════
+// MODE SWITCH
+// ══════════════════════════════════════════════
+document.querySelectorAll('.mb').forEach(function(btn){
+  btn.addEventListener('click',function(){
+    document.querySelectorAll('.mb').forEach(function(b){ b.classList.remove('on'); });
+    btn.classList.add('on');
+    ST.mode=btn.dataset.mode;
+    document.querySelectorAll('.mp').forEach(function(p){ p.classList.remove('on'); });
+    document.getElementById('mp-'+ST.mode).classList.add('on');
+    if(ST.mode==='dots'){ ctx.setTransform(1,0,0,1,0,0); cv.style.width=''; cv.style.height=''; }
+    var isTap=ST.dots.dist==='tapL'||ST.dots.dist==='tapS';
+    setTapUI(ST.mode==='dots'&&isTap);
     render();
   });
 });
 
-// ════════════════════════════════
-//  TABS
-// ════════════════════════════════
-document.querySelectorAll('.tab').forEach(tab=>{
-  tab.addEventListener('click',()=>{
-    const panel=tab.dataset.panel, tid=tab.dataset.tab;
-    document.querySelectorAll(`#panel-${panel} .tab`).forEach(t=>t.classList.remove('active'));
-    document.querySelectorAll(`#panel-${panel} .tc`).forEach(c=>c.classList.remove('active'));
-    tab.classList.add('active');
-    document.getElementById(`${panel}-tab-${tid}`).classList.add('active');
+// ══════════════════════════════════════════════
+// TABS
+// ══════════════════════════════════════════════
+document.querySelectorAll('.tb').forEach(function(tab){
+  tab.addEventListener('click',function(){
+    var p=tab.dataset.p, t=tab.dataset.t;
+    document.querySelectorAll('#mp-'+p+' .tb').forEach(function(x){ x.classList.remove('on'); });
+    document.querySelectorAll('#mp-'+p+' .tc').forEach(function(x){ x.classList.remove('on'); });
+    tab.classList.add('on');
+    document.getElementById(p+'-'+t).classList.add('on');
   });
 });
 
-// ════════════════════════════════
-//  DOWNLOAD — FIX#5: direct save, no preview
-// ════════════════════════════════
-document.getElementById('dlBtn').addEventListener('click',()=>{
-  cv.toBlob(blob=>{
-    if(!blob)return;
-    const url=URL.createObjectURL(blob);
-    const a=document.createElement('a');
-    a.href=url; a.download='dooo0t.png';
-    a.style.display='none';
-    document.body.appendChild(a); a.click();
-    setTimeout(()=>{ document.body.removeChild(a); URL.revokeObjectURL(url); },500);
-  },'image/png');
-});
+// ══════════════════════════════════════════════
+// DOWNLOAD — in-page overlay so iOS can long-press to save
+// ══════════════════════════════════════════════
+(function(){
+  // Create overlay elements once
+  var ov=document.createElement('div');
+  ov.style.cssText='position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.88);display:none;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px;box-sizing:border-box;-webkit-tap-highlight-color:transparent';
+  var img=document.createElement('img');
+  img.style.cssText='max-width:100%;max-height:72vh;border-radius:8px;display:block;box-shadow:0 4px 24px rgba(0,0,0,.5)';
+  var hint=document.createElement('p');
+  hint.style.cssText='color:#fff;font-size:15px;text-align:center;margin:0;line-height:1.6';
+  hint.textContent='Long-press the image → Save to Photos';
+  var closeBtn=document.createElement('button');
+  closeBtn.textContent='Close';
+  closeBtn.style.cssText='border:1.5px solid rgba(255,255,255,.5);background:transparent;color:#fff;font-size:15px;padding:9px 32px;border-radius:20px;cursor:pointer;font-family:inherit';
+  ov.appendChild(img); ov.appendChild(hint); ov.appendChild(closeBtn);
+  document.body.appendChild(ov);
 
-// ════════════════════════════════
-//  DROPDOWN
-// ════════════════════════════════
-const dov=document.getElementById('dov'), dsh=document.getElementById('dsh');
+  function closeOv(){ ov.style.display='none'; img.src=''; }
+  closeBtn.addEventListener('click',closeOv);
+  ov.addEventListener('click',function(e){ if(e.target===ov) closeOv(); });
+
+  document.getElementById('dlBtn').addEventListener('click',function(){
+    try{
+      var dataUrl=cv.toDataURL('image/png');
+      img.src=dataUrl;
+      ov.style.display='flex';
+    } catch(e){ alert('Please screenshot to save :)'); }
+  });
+})();
+
+// ══════════════════════════════════════════════
+// DROPDOWN
+// ══════════════════════════════════════════════
+var dov=document.getElementById('dov'), dsh=document.getElementById('dsh');
 function openDD(opts,cur,cb){
   dsh.innerHTML='';
-  opts.forEach(o=>{
-    const item=document.createElement('div'); item.className='di';
-    item.innerHTML=`<span class="ck">${o.v===cur?'✓':''}</span><span>${o.l}</span>`;
-    item.addEventListener('click',()=>{ cb(o.v); closeDD(); render(); });
-    dsh.appendChild(item);
+  opts.forEach(function(o){
+    var d=document.createElement('div'); d.className='di';
+    d.innerHTML='<span class="dck">'+(o.v===cur?'✓':'')+'</span><span>'+o.l+'</span>';
+    d.addEventListener('click',function(){ cb(o.v); closeDD(); render(); });
+    dsh.appendChild(d);
   });
-  dov.classList.add('open');
+  dov.classList.add('on');
 }
-function closeDD(){ dov.classList.remove('open'); }
+function closeDD(){ dov.classList.remove('on'); }
 document.getElementById('dbk').addEventListener('click',closeDD);
 
-// ════════════════════════════════
-//  SLIDERS
-// ════════════════════════════════
-function slider(id,vid,min,max,cb){
-  const s=document.getElementById(id), v=document.getElementById(vid);
-  if(!s)return;
-  s.addEventListener('input',()=>{
-    const n=parseInt(s.value); if(v)v.textContent=n;
-    const p=((n-min)/(max-min)*100).toFixed(1);
-    s.style.background=`linear-gradient(to right,#5a8a3c ${p}%,#ddd ${p}%)`;
-    cb(n); render();
-  });
-}
-slider('ratioR','ratioV',10,90,v=>S.layout.ratio=v);
-slider('dotSzR','dotSzV',4,120,v=>S.dots.size=v);
-slider('dotVarR','dotVarV',0,100,v=>S.dots.variance=v);
-slider('dotCntR','dotCntV',3,200,v=>S.dots.count=v);
-slider('strWR','strWV',2,60,v=>S.bg.strW=v);
-slider('gaGapR','gaGapV',0,20,v=>S.ga.gap=v);
-slider('gaRadR','gaRadV',0,20,v=>S.ga.rad=v);
-slider('gbSeedR','gbSeedV',0,99,v=>S.gb.seed=v);
-
-// ════════════════════════════════
-//  COLOR PICKERS  — FIX#2,#3,#9
-// ════════════════════════════════
-function bindClr(rowId,pickerId,swatchId,setter){
-  const row=document.getElementById(rowId);
-  const pick=document.getElementById(pickerId);
-  const sw=document.getElementById(swatchId);
-  if(row) row.addEventListener('click',()=>pick.click());
-  pick.addEventListener('input',e=>{ setter(e.target.value); if(sw)sw.style.background=e.target.value; render(); });
-}
-bindClr('bgSolidRow','bgClr','bgSwatch',v=>S.bg.c1=v);
-bindClr('str1Row','strClr1','str1Sw',v=>S.bg.c1=v);
-bindClr('str2Row','strClr2','str2Sw',v=>S.bg.c2=v);
-bindClr('dotClrRow','dotClr','dotSwatch',v=>S.dots.color=v);
-bindClr('gaBgRow','gaBgClr','gaBgSw',v=>S.ga.bg=v);
-bindClr('gaTxtRow','gaTxtClr','gaTxtSw',v=>S.ga.txt=v);
-bindClr('gbBgRow','gbBgClr','gbBgSw',v=>S.gb.bg=v);
-bindClr('gbTxtRow','gbTxtClr','gbTxtSw',v=>S.gb.txt=v);
-
-// ════════════════════════════════
-//  DROPDOWN BINDINGS
-// ════════════════════════════════
-// Layout arrange
-document.getElementById('arrRow').addEventListener('click',()=>{
-  const opts=[{v:'left',l:'主图在左'},{v:'right',l:'主图在右'},{v:'top',l:'主图在上'},{v:'bottom',l:'主图在下'}];
-  openDD(opts,S.layout.arr,v=>{ S.layout.arr=v; document.getElementById('arrLbl').textContent=opts.find(o=>o.v===v).l; });
+document.getElementById('rArr').addEventListener('click',function(){
+  var o=[{v:'left',l:'Main left'},{v:'right',l:'Main right'},{v:'top',l:'Main top'},{v:'bottom',l:'Main bottom'}];
+  openDD(o,ST.layout.arr,function(v){ ST.layout.arr=v; document.getElementById('vArr').textContent=o.find(function(x){return x.v===v;}).l; });
 });
-
-// BG type
-document.getElementById('bgTypeRow').addEventListener('click',()=>{
-  const opts=[{v:'solid',l:'纯色'},{v:'stripe',l:'条纹'},{v:'photo',l:'照片'}];
-  openDD(opts,S.bg.type,v=>{
-    S.bg.type=v; document.getElementById('bgTypeLbl').textContent=opts.find(o=>o.v===v).l;
-    document.getElementById('bgSolidRow').style.display=v==='solid'?'flex':'none';
-    document.getElementById('bgStripeRows').style.display=v==='stripe'?'block':'none';
-    document.getElementById('bgPhotoRow').style.display=v==='photo'?'block':'none';
+document.getElementById('rBgType').addEventListener('click',function(){
+  var o=[{v:'solid',l:'Solid'},{v:'stripe',l:'Stripe'},{v:'photo',l:'Photo'}];
+  openDD(o,ST.bg.type,function(v){
+    ST.bg.type=v; document.getElementById('vBgType').textContent=o.find(function(x){return x.v===v;}).l;
+    document.getElementById('gSolid').style.display=v==='solid'?'flex':'none';
+    document.getElementById('gStripe').style.display=v==='stripe'?'block':'none';
+    document.getElementById('gPhoto').style.display=v==='photo'?'block':'none';
   });
 });
-
-// Shape — FIX#1
-document.getElementById('shapeRow').addEventListener('click',()=>{
-  const opts=[{v:'circle',l:'圆形'},{v:'square',l:'方形'},{v:'star',l:'五角星形'},{v:'drop',l:'水滴形'},{v:'snowflake',l:'雪花形'},{v:'char',l:'字符形'}];
-  openDD(opts,S.dots.shape,v=>{
-    S.dots.shape=v; document.getElementById('shapeLbl').textContent=opts.find(o=>o.v===v).l;
-    // FIX#6: char row below shape
-    document.getElementById('charRow').style.display=v==='char'?'flex':'none';
+document.getElementById('rShape').addEventListener('click',function(){
+  var o=[{v:'circle',l:'Circle'},{v:'square',l:'Square'},{v:'star',l:'Star'},{v:'drop',l:'Teardrop'},{v:'snowflake',l:'Snowflake'},{v:'char',l:'Character'}];
+  openDD(o,ST.dots.shape,function(v){
+    ST.dots.shape=v; document.getElementById('vShape').textContent=o.find(function(x){return x.v===v;}).l;
+    document.getElementById('gChar').style.display=v==='char'?'flex':'none';
   });
 });
-
-// FIX#6: char input, no maxlength
-document.getElementById('charInp').addEventListener('input',e=>{ S.dots.char=e.target.value||'●'; render(); });
-
-// Dist — FIX#4
-function updateDistUI(){
-  const isTap=S.dots.dist==='tapL'||S.dots.dist==='tapS';
-  document.getElementById('rndBtn').textContent=isTap?'清空点位':'随机一下';
-  document.getElementById('undoRow').style.display=isTap?'flex':'none';
-  document.getElementById('tapHint').style.display=isTap?'block':'none';
-}
-document.getElementById('distRow').addEventListener('click',()=>{
-  const opts=[{v:'random',l:'随机'},{v:'grid',l:'网格'},{v:'tapL',l:'点一下图片（左右不对应）'},{v:'tapS',l:'点一下图片（左右对应）'}];
-  openDD(opts,S.dots.dist,v=>{
-    S.dots.dist=v; document.getElementById('distLbl').textContent=opts.find(o=>o.v===v).l;
-    updateDistUI();
-    if(v==='random'||v==='grid') genPos();
-    else S.dots.pos=[];
+document.getElementById('rDist').addEventListener('click',function(){
+  var o=[{v:'random',l:'Random'},{v:'grid',l:'Grid'},{v:'tapL',l:'Tap to place (main solid, asymmetric)'},{v:'tapS',l:'Tap to place (main solid, symmetric)'}];
+  openDD(o,ST.dots.dist,function(v){
+    ST.dots.dist=v; document.getElementById('vDist').textContent=o.find(function(x){return x.v===v;}).l;
+    var isTap=v==='tapL'||v==='tapS';
+    setTapUI(isTap);
+    if(!isTap) genPos(); else ST.dots.pos=[];
     render();
   });
 });
-
-document.getElementById('rndBtn').addEventListener('click',()=>{
-  if(S.dots.dist==='tapL'||S.dots.dist==='tapS'){ S.dots.pos=[]; render(); }
-  else { genPos(); render(); }
+document.getElementById('rGbScale').addEventListener('click',function(){
+  var o=[{v:'small',l:'Small'},{v:'medium',l:'Medium'},{v:'large',l:'Large'}];
+  openDD(o,ST.gb.scale,function(v){ ST.gb.scale=v; document.getElementById('vGbScale').textContent=o.find(function(x){return x.v===v;}).l; });
 });
-document.getElementById('undoBtn').addEventListener('click',()=>{
-  if(S.dots.dist==='tapS'&&S.dots.pos.length>=2) S.dots.pos.splice(-2);
-  else if(S.dots.pos.length>=1) S.dots.pos.pop();
+
+// ══════════════════════════════════════════════
+// SLIDERS
+// ══════════════════════════════════════════════
+function mkSlider(rid,vid,min,max,cb){
+  var el=document.getElementById(rid), vEl=document.getElementById(vid);
+  if(!el) return;
+  function upd(){
+    var n=parseInt(el.value); if(vEl) vEl.textContent=n;
+    var pct=((n-min)/(max-min)*100).toFixed(1);
+    el.style.background='linear-gradient(to right,#5a8a3c '+pct+'%,#ddd '+pct+'%)';
+    cb(n); render();
+  }
+  el.addEventListener('input',upd);
+  var n0=parseInt(el.value);
+  el.style.background='linear-gradient(to right,#5a8a3c '+((n0-min)/(max-min)*100).toFixed(1)+'%,#ddd '+((n0-min)/(max-min)*100).toFixed(1)+'%)';
+}
+mkSlider('rRatio','vRatio',10,90,function(v){ ST.layout.ratio=v; });
+mkSlider('rSz','vSz',4,120,function(v){ ST.dots.size=v; });
+mkSlider('rVar','vVar',0,100,function(v){ ST.dots.variance=v; });
+mkSlider('rCnt','vCnt',0,200,function(v){ ST.dots.count=v; var isTap=ST.dots.dist==='tapL'||ST.dots.dist==='tapS'; if(!isTap) genPos(); });
+mkSlider('rStrW','vStrW',2,60,function(v){ ST.bg.strW=v; });
+mkSlider('rGaGap','vGaGap',0,20,function(v){ ST.ga.gap=v; });
+mkSlider('rGaRad','vGaRad',0,20,function(v){ ST.ga.rad=v; });
+mkSlider('rGbSeed','vGbSeed',0,99,function(v){ ST.gb.seed=v; });
+
+// ══════════════════════════════════════════════
+// COLOR PICKERS — FIX #2,3,4: inline input[type=color]
+// Just listen to 'input' and 'change' on the native element
+// ══════════════════════════════════════════════
+function mkColor(id,cb){
+  var el=document.getElementById(id);
+  if(!el) return;
+  function onC(){ cb(el.value); render(); }
+  el.addEventListener('input',onC);
+  el.addEventListener('change',onC);
+}
+mkColor('cpBg',  function(v){ ST.bg.c1=v; });
+mkColor('cpS1',  function(v){ ST.bg.c1=v; });
+mkColor('cpS2',  function(v){ ST.bg.c2=v; });
+mkColor('cpDot', function(v){ ST.dots.color=v; });
+mkColor('cpGaBg',function(v){ ST.ga.bg=v; });
+mkColor('cpGaTx',function(v){ ST.ga.txt=v; });
+mkColor('cpGbBg',function(v){ ST.gb.bg=v; });
+mkColor('cpGbTx',function(v){ ST.gb.txt=v; });
+
+// ══════════════════════════════════════════════
+// MISC
+// ══════════════════════════════════════════════
+document.getElementById('rndBtn').addEventListener('click',function(){
+  var isTap=ST.dots.dist==='tapL'||ST.dots.dist==='tapS';
+  if(isTap){ ST.dots.pos=[]; } else { genPos(); }
   render();
 });
-
-// GB scale
-document.getElementById('gbScaleRow').addEventListener('click',()=>{
-  const opts=[{v:'small',l:'小'},{v:'medium',l:'中等'},{v:'large',l:'大'}];
-  openDD(opts,S.gb.scale,v=>{ S.gb.scale=v; document.getElementById('gbScaleLbl').textContent=opts.find(o=>o.v===v).l; });
+document.getElementById('undoBtn').addEventListener('click',function(){
+  if(ST.dots.dist==='tapS'&&ST.dots.pos.length>=2) ST.dots.pos.splice(-2,2);
+  else if(ST.dots.pos.length>=1) ST.dots.pos.pop();
+  render();
 });
+document.getElementById('charInp').addEventListener('input',function(){ ST.dots.char=this.value||'●'; render(); });
+document.getElementById('gaTitle').addEventListener('input',function(){ ST.ga.title=this.value; render(); });
+document.getElementById('gaCaps').addEventListener('input',function(){ ST.ga.captions=this.value; render(); });
+document.getElementById('gaCredit').addEventListener('input',function(){ ST.ga.credit=this.value; render(); });
 
-// ════════════════════════════════
-//  TEXT INPUTS (gridA)
-// ════════════════════════════════
-[['gaTitle','title'],['gaCaptions','captions'],['gaCredit','credit']].forEach(([id,key])=>{
-  const el=document.getElementById(id); if(!el)return;
-  el.addEventListener('input',()=>{ S.ga[key]=el.value; render(); });
-});
-
-// ════════════════════════════════
-//  INIT
-// ════════════════════════════════
+// ══════════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════════
 genPos();
 render();
-window.addEventListener('resize',()=>{ if(S.mode==='dots')genPos(); render(); });
+window.addEventListener('resize',function(){ if(ST.mode==='dots') genPos(); render(); });
 </script>
 
 </body>
